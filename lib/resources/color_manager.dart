@@ -15,19 +15,6 @@ class ColorManager {
   static Color pinkL2 = HexColor.fromHex("#FFA1CF");
   static Color pinkL3 = HexColor.fromHex("#FEB2DD");
 
-  static Color a = HexColor.fromHex("#63DD3E");
-  static Color s = HexColor.fromHex("#00AD30");
-  static Color d = HexColor.fromHex("#525252");
-  static Color f = HexColor.fromHex("#737477");
-  static Color g = HexColor.fromHex("#9E9E9E");
-  static Color h = HexColor.fromHex("#B3000966");
-  static Color q = HexColor.fromHex("#F0BE0D");
-  static Color w = HexColor.fromHex("#DA2C38");
-  static Color e = HexColor.fromHex("#05B2DC");
-
-  // static Color pinkL1 = HexColor.fromHex("#FE82B9");
-  // static Color pinkL2 = HexColor.fromHex("#FFA1CF");
-  // static Color pinkL3 = HexColor.fromHex("#FEB2DD");
 }
 
 extension HexColor on Color {

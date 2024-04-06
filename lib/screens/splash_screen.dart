@@ -1,4 +1,4 @@
-import 'package:app_gym/screens/auth/home_screen.dart';
+import 'package:app_gym/screens/auth/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
