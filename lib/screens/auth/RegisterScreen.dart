@@ -1,5 +1,6 @@
 import 'package:app_gym/resources/color_manager.dart';
 import 'package:app_gym/screens/auth/LoginScreen.dart';
+import 'package:app_gym/screens/menu/home_menu.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -13,7 +14,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -80,31 +80,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         //           style: BorderStyle.solid,
                         //           width: 0.70),
                         //     ),
-                            // decoration: BoxDecoration(
-                            // ),
-                            // child: DropdownButton<String?>(
-                            //   hint: const Text('Gender'),
-                            //   value: selectedValue,
-                            //   onChanged: (value) {
-                            //     setState(() {
-                            //       selectedValue = value ?? "";
-                            //     });
-                            //   },
-                            //   underline: const SizedBox(),
-                            //   isExpanded: true,
-                            //   items: gender
-                            //       .map<DropdownMenuItem<String?>>(
-                            //         (e) => DropdownMenuItem(
-                            //           child: Text(
-                            //             e.toString(),
-                            //           ),
-                            //           value: e,
-                            //         ),
-                            //       )
-                            //       .toList(),
-                            // )
-                            // print();),
-                            // ),
+                        // decoration: BoxDecoration(
+                        // ),
+                        // child: DropdownButton<String?>(
+                        //   hint: const Text('Gender'),
+                        //   value: selectedValue,
+                        //   onChanged: (value) {
+                        //     setState(() {
+                        //       selectedValue = value ?? "";
+                        //     });
+                        //   },
+                        //   underline: const SizedBox(),
+                        //   isExpanded: true,
+                        //   items: gender
+                        //       .map<DropdownMenuItem<String?>>(
+                        //         (e) => DropdownMenuItem(
+                        //           child: Text(
+                        //             e.toString(),
+                        //           ),
+                        //           value: e,
+                        //         ),
+                        //       )
+                        //       .toList(),
+                        // )
+                        // print();),
+                        // ),
                         Container(
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
@@ -182,10 +182,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               //       },
                               //     );
                               //   },
-                                // splashRadius: 1.0,
-                              ),
+                              // splashRadius: 1.0,
                             ),
                           ),
+                        ),
                         // ),
                         const SizedBox(
                           height: 5,
@@ -286,15 +286,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             child: const Text('DAFTAR'),
                             onPressed: () async {
-                              // if (_formKey.currentState!.validate()) {
-                              //   setState(() {
-                              //     isLoading = true;
-                              //   });
-
-                              //   registerUser();
-                              //   print(selectedValue);
-                              //   print(selectedDate);
-                              // }
+                              Navigator.pushReplacement<void, void>(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      const HomeScreen(),
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -306,10 +304,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               const Text('Sudah punya akun?'),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
+                                  Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
-                                      builder: (context) => const LoginScreen(),
+                                      builder: (_) => const HomeScreen(),
                                     ),
                                   );
                                 },
