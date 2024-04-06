@@ -1,4 +1,5 @@
 import 'package:app_gym/screens/auth/RegisterScreen.dart';
+import 'package:app_gym/screens/menu/home_menu.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/color_manager.dart';
@@ -107,35 +108,28 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // const SizedBox(height: 30),
-                    // Container(
-                    //   height: 50,
-                    //   width: double.infinity,
-                    //   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    //   child: ElevatedButton(
-                    //     style: ElevatedButton.styleFrom(
-                    //       backgroundColor: ColorManager.primary, // background
-                    //       foregroundColor: Colors.white, // foreground
-                    //     ),
-                    //     child: isLoading
-                    //         ? const Padding(
-                    //             padding: EdgeInsets.all(8.0),
-                    //             child: CircularProgressIndicator(
-                    //               color: Colors.white,
-                    //             ),
-                    //           )
-                    //         : const Text('MASUK'),
-                    //     onPressed: () async {
-                    //       if (_formKey.currentState!.validate()) {
-                    //         setState(() {
-                    //           isLoading = true;
-                    //         });
-
-                    //         loginUser();
-                    //       }
-                    //     },
-                    //   ),
-                    // ),
+                    const SizedBox(height: 30),
+                    Container(
+                      height: 50,
+                      width: double.infinity,
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorManager.pinkL1, // background
+                          foregroundColor: Colors.white, // foreground
+                        ),
+                        child: const Text('MASUK'),
+                        onPressed: () async {
+                          Navigator.pushReplacement<void, void>(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) =>
+                                  const HomeScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                     const SizedBox(height: 5),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -148,7 +142,8 @@ class LoginScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const RegisterScreen(),
+                                    builder: (context) =>
+                                        const RegisterScreen(),
                                   ));
                             },
                             child: Text(
