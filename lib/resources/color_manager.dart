@@ -14,7 +14,19 @@ class ColorManager {
   static Color pinkL1 = HexColor.fromHex("#FE82B9");
   static Color pinkL2 = HexColor.fromHex("#FFA1CF");
   static Color pinkL3 = HexColor.fromHex("#FEB2DD");
+  static Color softpink = HexColor.fromHex("#FFD4D7");
 
+  // Brand Color (Primary)
+  Color primary0 = const Color(0xffFFFFFF);
+  Color primary100 = const Color(0xffCFECFA);
+  Color primary200 = const Color(0xffA2D7F6);
+  Color primary300 = const Color(0xff70B4E5);
+  Color primary400 = const Color(0xff498ECC);
+  Color primary500 = const Color(0xff195FAA);
+  Color primary600 = const Color(0xff124992);
+  Color primary700 = const Color(0xff0C367A);
+  Color primary800 = const Color(0xff072662);
+  Color primary900 = const Color(0xff041A51);
 }
 
 extension HexColor on Color {

@@ -1,4 +1,5 @@
 import 'package:app_gym/screens/auth/RegisterScreen.dart';
+import 'package:app_gym/screens/main_buttomNavigasi.dart';
 import 'package:app_gym/screens/menu/home_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -124,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute<void>(
                               builder: (BuildContext context) =>
-                                  const HomeScreen(),
+                                  const ButtomNavigasiHome(),
                             ),
                           );
                         },

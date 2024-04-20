@@ -1,5 +1,6 @@
 import 'package:app_gym/resources/color_manager.dart';
 import 'package:app_gym/screens/auth/LoginScreen.dart';
+import 'package:app_gym/screens/main_buttomNavigasi.dart';
 import 'package:app_gym/screens/menu/home_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -290,7 +291,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 context,
                                 MaterialPageRoute<void>(
                                   builder: (BuildContext context) =>
-                                      const HomeScreen(),
+                                      const ButtomNavigasiHome(),
                                 ),
                               );
                             },
@@ -306,7 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
-                                      builder: (_) => const HomeScreen(),
+                                      builder: (_) => const LoginScreen(),
                                     ),
                                   );
                                 },
