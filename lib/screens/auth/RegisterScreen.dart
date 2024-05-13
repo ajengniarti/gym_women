@@ -1,17 +1,99 @@
-import 'package:app_gym/resources/color_manager.dart';
-import 'package:app_gym/screens/auth/LoginScreen.dart';
-import 'package:app_gym/screens/main_buttomNavigasi.dart';
-import 'package:app_gym/screens/menu/home_menu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:app_gym/components/my_button.dart';
+import 'package:app_gym/components/my_textfield.dart';
+import 'package:flutter/widgets.dart';
+import '../../resources/color_manager.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  final Widget? suffixIcon;
+  final Function()? onTap;
+
+  const RegisterScreen({
+    Key? key,
+    this.suffixIcon,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final teleponController = TextEditingController();
+
+  void signUserUp() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    //try creating the user
+    try {
+      // cek jika password terkonfirmasi pada tabel auth
+      if (passwordController.text == confirmpasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+
+        // add detail user
+        addUserDetail(
+          usernameController.text,
+          teleponController.text,
+        );
+      } else {
+        //show error message, password don't match
+        showErrorMessage("Password don't match!");
+      }
+      // pop the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+      //show error message
+      showErrorMessage(e.code);
+    }
+  }
+
+  void addUserDetail(String username, String telepon) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'username': username,
+        'telepon': telepon,
+      });
+    }
+  }
+
+  //error message to user
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.grey,
+          title: Text(
+            message,
+            style: const TextStyle(color: Colors.white),
+          ),
+        );
+      },
+    );
+  }
+
+  bool _isObscurePassword = true;
+  bool _isObscureConfirmPassword = true;
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -23,305 +105,145 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Form(
-                child: Stack(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Positioned(
-                      top: MediaQuery.of(context).size.height * 0.1,
-                      left: MediaQuery.of(context).size.width * 0.6,
+                    SizedBox(height: height * 0.15),
+                    Center(
                       child: Image(
-                        image: const AssetImage('assets/images/icon.png'),
-                        width: MediaQuery.of(context).size.width * 0.25,
+                        image: const AssetImage('assets/images/logodp.png'),
+                        width: MediaQuery.of(context).size.width * 0.70,
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: height * 0.17),
-                        SizedBox(height: height * 0.045),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: Text(
-                            'Buat Akun Baru',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+
+                    //Ucapan buat akun baru
+                    SizedBox(height: height * 0.02),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        'Buat Baru Anda',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 93, 92, 92),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          child: TextFormField(
-                            // controller: nameController,
-                            // validator: _nameValidator,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.person,
+                      ),
+                    ),
+
+                    //nama textfild
+                    MyTextField(
+                      controller: usernameController,
+                      hintText: 'Username',
+                      obscureText: false,
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: ColorManager.pinkL1,
+                      ),
+                    ),
+
+                    //email textfild
+                    MyTextField(
+                      controller: emailController,
+                      hintText: 'Email',
+                      obscureText: false,
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: ColorManager.pinkL1,
+                      ),
+                    ),
+
+                    //telefon textfild
+                    MyTextField(
+                      controller: teleponController,
+                      hintText: 'Telepon',
+                      obscureText: false,
+                      prefixIcon: Icon(
+                        Icons.call,
+                        color: ColorManager.pinkL1,
+                      ),
+                    ),
+
+                    //password textfild
+                    MyTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      obscureText: _isObscurePassword,
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: ColorManager.pinkL1,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isObscurePassword = !_isObscurePassword;
+                          });
+                        },
+                        icon: Icon(
+                          _isObscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+
+                    //confirm password
+                    MyTextField(
+                      controller: confirmpasswordController,
+                      hintText: 'Confirm Password',
+                      obscureText: _isObscureConfirmPassword,
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: ColorManager.pinkL1,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isObscureConfirmPassword =
+                                !_isObscureConfirmPassword;
+                          });
+                        },
+                        icon: Icon(
+                          _isObscureConfirmPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ButtonLogin(
+                      onTap: signUserUp,
+                      name: 'Daftar',
+                    ),
+                    const SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 25),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Apakah sudah punya akun?',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          GestureDetector(
+                            onTap: widget.onTap,
+                            child: Text(
+                              "Masuk",
+                              style: TextStyle(
                                 color: ColorManager.pinkL1,
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Nama',
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorManager.pinkL1,
-                                ),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
                               ),
                             ),
                           ),
-                        ),
-                        // Container(
-                        //     margin: const EdgeInsets.all(12),
-                        //     padding: const EdgeInsets.all(10),
-                        //     decoration: BoxDecoration(
-                        //       // borderRadius: BorderRadius.circular(15.0),
-                        //       border: Border.all(
-                        //           color: Colors.black,
-                        //           style: BorderStyle.solid,
-                        //           width: 0.70),
-                        //     ),
-                        // decoration: BoxDecoration(
-                        // ),
-                        // child: DropdownButton<String?>(
-                        //   hint: const Text('Gender'),
-                        //   value: selectedValue,
-                        //   onChanged: (value) {
-                        //     setState(() {
-                        //       selectedValue = value ?? "";
-                        //     });
-                        //   },
-                        //   underline: const SizedBox(),
-                        //   isExpanded: true,
-                        //   items: gender
-                        //       .map<DropdownMenuItem<String?>>(
-                        //         (e) => DropdownMenuItem(
-                        //           child: Text(
-                        //             e.toString(),
-                        //           ),
-                        //           value: e,
-                        //         ),
-                        //       )
-                        //       .toList(),
-                        // )
-                        // print();),
-                        // ),
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          child: TextFormField(
-                            // controller: emailController,
-                            // validator: _emailValidator,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.email,
-                                color: ColorManager.pinkL1,
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Email',
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorManager.pinkL1,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          child: TextFormField(
-                            // controller: phoneController,
-                            // validator: _phoneValidator,
-                            keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.phone,
-                                color: ColorManager.pinkL1,
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Telepon',
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorManager.pinkL1,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                          child: TextFormField(
-                            // controller: passwordController,
-                            // validator: _passwordValidator,
-                            keyboardType: TextInputType.text,
-                            // obscureText: _isObscure,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.lock,
-                                color: ColorManager.pinkL1,
-                              ),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Password',
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorManager.pinkL1,
-                                ),
-                              ),
-                              // suffixIcon: IconButton(
-                              //   icon: Icon(
-                              //     // _isObscure
-                              //         ? Icons.visibility_off
-                              //         : Icons.visibility,
-                              //     color: _isObscure
-                              //         ? Colors.grey
-                              //         : ColorManager.primary,
-                              //   ),
-                              //   onPressed: () {
-                              //     setState(
-                              //       () {
-                              //         _isObscure = !_isObscure;
-                              //       },
-                              //     );
-                              //   },
-                              // splashRadius: 1.0,
-                            ),
-                          ),
-                        ),
-                        // ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        // Container(
-                        //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                        //   child: TextFormField(
-                        //     controller: confirmPasswordController,
-                        //     validator: (val) => MatchValidator(
-                        //             errorText: "Konfirmasi password tidak sama")
-                        //         .validateMatch(val!, passwordController.text),
-                        //     keyboardType: TextInputType.text,
-                        //     obscureText: _isObscure,
-                        //     decoration: InputDecoration(
-                        //       prefixIcon: Icon(
-                        //         Icons.lock,
-                        //         color: ColorManager.primary,
-                        //       ),
-                        //       border: const OutlineInputBorder(),
-                        //       hintText: 'Konfirmasi Password',
-                        //       focusedBorder: OutlineInputBorder(
-                        //         borderSide: BorderSide(
-                        //           color: ColorManager.primary,
-                        //         ),
-                        //       ),
-                        //       suffixIcon: IconButton(
-                        //         icon: Icon(
-                        //           _isObscure
-                        //               ? Icons.visibility_off
-                        //               : Icons.visibility,
-                        //           color: _isObscure
-                        //               ? Colors.grey
-                        //               : ColorManager.primary,
-                        //         ),
-                        //         onPressed: () {
-                        //           setState(
-                        //             () {
-                        //               _isObscure = !_isObscure;
-                        //             },
-                        //           );
-                        //         },
-                        //         splashRadius: 1.0,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 4),
-                        // Container(
-                        //   margin: const EdgeInsets.all(12),
-                        //   // padding: const EdgeInsets.all(10),
-                        //   height: 50,
-                        //   width: double.infinity,
-                        //   // alignment: Alignment.topLeft,
-                        //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        //   //  padding: const EdgeInsets.all(10)
-                        //   decoration: BoxDecoration(
-                        //     border: Border.all(
-                        //       color: Colors.black,
-                        //       style: BorderStyle.solid,
-                        //       width: 0.70,
-                        //     ),
-                        //   ),
-                        //   child: MaterialButton(
-                        //     onPressed: _showDatePicker,
-                        //     child: Row(
-                        //       // mainAxisAlignment: MainAxisAlignment.start,
-                        //       children: [
-                        //         Icon(
-                        //           Icons.calendar_month,
-                        //           color: ColorManager.primary,
-                        //         ),
-                        //         const SizedBox(
-                        //           width: 4,
-                        //         ),
-                        //         Text(
-                        //           selectedDate == null
-                        //               ? "Pilih Tanggal Lahir"
-                        //               : DateFormat('yyyy-MM-dd')
-                        //                   .format(selectedDate!),
-                        //           textAlign: TextAlign.start,
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Container(
-                          height: 50,
-                          width: double.infinity,
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  ColorManager.pinkL1, // background
-                              foregroundColor: Colors.white, // foreground
-                            ),
-                            child: const Text('DAFTAR'),
-                            onPressed: () async {
-                              Navigator.pushReplacement<void, void>(
-                                context,
-                                MaterialPageRoute<void>(
-                                  builder: (BuildContext context) =>
-                                      const ButtomNavigasiHome(),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 0),
-                          child: Row(
-                            children: [
-                              const Text('Sudah punya akun?'),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (_) => const LoginScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  "Masuk",
-                                  style: TextStyle(color: ColorManager.pinkL1),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.07),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

@@ -1,4 +1,3 @@
-import 'package:app_gym/screens/menu/document_screen.dart';
 import 'package:app_gym/screens/menu/home_menu.dart';
 import 'package:app_gym/screens/menu/news_screen.dart';
 import 'package:app_gym/screens/menu/profile_screen.dart';
@@ -15,10 +14,9 @@ class ButtomNavigasiHome extends StatefulWidget {
 class _ButtomNavigasiHomeState extends State<ButtomNavigasiHome> {
   int index = 0;
   final screen = [
-    const HomeScreen(),
+    HomeScreen(),
     const NewsScreen(),
     const ScanScreen(),
-    const DocumentScreen(),
     const ProfileScreen(),
   ];
 
@@ -49,10 +47,6 @@ class _ButtomNavigasiHomeState extends State<ButtomNavigasiHome> {
               NavigationDestination(
                 icon: Icon(Icons.qr_code),
                 label: 'Scan',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.file_copy_outlined),
-                label: 'Documents',
               ),
               NavigationDestination(
                 icon: Icon(Icons.person),

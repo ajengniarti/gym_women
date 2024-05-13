@@ -43,7 +43,7 @@ class _ScanScreenState extends State<ScanScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                   const Text(
-                    "Arahkan kamera ke kode QR yang terletak pada pohon.",
+                    "Arahkan kamera ke kode QR yang terletak pada barcode yang ada.",
                     style: TextStyle(color: Colors.black),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),

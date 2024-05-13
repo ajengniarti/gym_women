@@ -1,21 +1,20 @@
 import 'package:app_gym/resources/color_manager.dart';
-import 'package:app_gym/screens/kelas/pesankelas.dart';
 import 'package:flutter/material.dart';
 
-class DetailKelasScreen extends StatefulWidget {
-  const DetailKelasScreen({super.key});
+class PesanKelasScreen extends StatefulWidget {
+  const PesanKelasScreen({super.key});
 
   @override
-  State<DetailKelasScreen> createState() => _DetailKelasScreenState();
+  State<PesanKelasScreen> createState() => _PesanKelasScreenState();
 }
 
-class _DetailKelasScreenState extends State<DetailKelasScreen> {
+class _PesanKelasScreenState extends State<PesanKelasScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Daftar Kelas Gym',
+          'Pesan Kelas Gym',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -97,7 +96,7 @@ class _DetailKelasScreenState extends State<DetailKelasScreen> {
                           Container(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Instruktur : Clarista Bunga Shinta',
+                              'Nama Instruktur : Clarista Bunga Shinta',
                               // +widget.productDonasiModel.collected!
                               // .toString()
                               // +
@@ -119,78 +118,53 @@ class _DetailKelasScreenState extends State<DetailKelasScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(height: 10,),
                               Text(
-                                'Pilates adalah olahraga yang berfokus pada penguatan otot inti, fleksibilitas, keseimbangan, dan koordinasi. Olahraga ini dapat dilakukan oleh semua orang dari segala usia dan tingkat kebugaran. ',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                'Tanggal Pelaksanaan',
+                                'Waktu Pelaksanaan Kelas',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               SizedBox(
-                                height: 5,
+                                height: 10,
                               ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    Icons.calendar_month,
-                                    color: Colors.black,
-                                  ),
-                                  Text('10 Oktober 2023'),
-                                  SizedBox(width: 245),
+                                  Text('Tanggal : ',
+                                  style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                  Text('10 Oktober 2023',
+                                  style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                  SizedBox(width: 210),
                                 ],
                               ),
                               SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                'Lokasi',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
+                                height: 10,
                               ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    Icons.location_on,
-                                    color: Colors.black,
-                                  ),
-                                  Text(
-                                      'Jl. Industri Wendit Barat, Keduyo, Mangliawan, \nKec. Pakis, Kabupaten Malang, Jawa Timur 65154'),
-                                  SizedBox(width: 70),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                'Sisa Kuota',
-                                style: TextStyle(
-                                  fontSize: 18,
+                                  Text('Waktu : ',
+                                  style: TextStyle(
+                                  fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                '15 Orang',
+                                ),),
+                                  Text('15.00',
+                                  style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                                  SizedBox(width: 255),
+                                ],
                               ),
                             ],
                           ),
@@ -313,12 +287,6 @@ class _DetailKelasScreenState extends State<DetailKelasScreen> {
                               foregroundColor: Colors.white, // foreground
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const PesanKelasScreen(),
-                                ));
                               // Buka URL di browser
                               // launch('https://bumibaik.com/donate-payment/' + Linkid.toString());
                             },

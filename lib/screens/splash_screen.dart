@@ -1,4 +1,5 @@
 import 'package:app_gym/screens/auth/LoginScreen.dart';
+import 'package:app_gym/screens/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,10 +18,10 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => const LoginScreen(),
+          builder: (_) => const AuthPage(),
           ),
       );
     });

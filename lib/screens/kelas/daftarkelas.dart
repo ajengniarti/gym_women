@@ -1,6 +1,8 @@
 import 'package:app_gym/resources/color_manager.dart';
+import 'package:app_gym/screens/kelas/detailkelas.dart';
 import 'package:app_gym/screens/main_buttomNavigasi.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DaftarKelasScreen extends StatefulWidget {
   const DaftarKelasScreen({super.key});
@@ -59,20 +61,29 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Card(
-                              elevation: 1.0,
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width *
-                                    0.45, // Mengatur lebar Card
+                            GestureDetector(
+                              onTap: () {
+                                // Tambahkan fungsi navigasi ke halaman baru di sini
+                                // Misalnya:
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DetailKelasScreen()),
+                                );
+                              },
+                              child: Card(
+                                elevation: 1.0,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
                                       height:
-                                          MediaQuery.of(context).size.height * 0.13,
+                                          MediaQuery.of(context).size.height *
+                                              0.13,
                                       width: MediaQuery.of(context).size.width *
-                                          0.45, // Mengatur lebar gambar
+                                          0.4,
                                       child: ClipRRect(
                                         borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(10),
@@ -86,13 +97,14 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.45, // Mengatur lebar konten
-                                      padding:
-                                          const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                                          0.4,
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 15, 10, 0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Pilates',
@@ -118,7 +130,7 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 10),
+                                          const SizedBox(height: 10),
                                         ],
                                       ),
                                     ),
@@ -127,7 +139,8 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                               ),
                             ),
 
-                            const SizedBox(width: 10), // Spacer antara kedua card
+                            const SizedBox(
+                                width: 10), // Spacer antara kedua card
                             Card(
                               elevation: 1.0,
                               child: SizedBox(
@@ -139,7 +152,8 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                   children: [
                                     SizedBox(
                                       height:
-                                          MediaQuery.of(context).size.height * 0.13,
+                                          MediaQuery.of(context).size.height *
+                                              0.13,
                                       width: MediaQuery.of(context).size.width *
                                           0.45, // Mengatur lebar gambar
                                       child: ClipRRect(
@@ -148,7 +162,7 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                           topRight: Radius.circular(10),
                                         ),
                                         child: Image.asset(
-                                          "assets/images/Pilates.png",
+                                          "assets/images/zumba.png",
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -156,15 +170,16 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                     Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.45, // Mengatur lebar konten
-                                      padding:
-                                          const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 15, 10, 0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Pilates',
+                                            'Zumba',
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: true,
                                             style: Theme.of(context)
@@ -197,148 +212,153 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                             ),
                           ],
                         ),
-                         Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Card(
-                          elevation: 1.0,
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width *
-                                0.45, // Mengatur lebar Card
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.13,
-                                  width: MediaQuery.of(context).size.width *
-                                      0.45, // Mengatur lebar gambar
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/Pilates.png",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width *
-                                      0.45, // Mengatur lebar konten
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Pilates',
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6
-                                            ?.copyWith(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                            ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Card(
+                              elevation: 1.0,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width *
+                                    0.45, // Mengatur lebar Card
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.13,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45, // Mengatur lebar gambar
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                        ),
+                                        child: Image.asset(
+                                          "assets/images/Pund_Fit.png",
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                      const SizedBox(height: 10),
-                                      Row(
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45, // Mengatur lebar konten
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 15, 10, 0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.calendar_month),
-                                          const SizedBox(width: 5),
                                           Text(
-                                            '18 - Januari 2024',
+                                            'Pound Fit',
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                                ?.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
                                           ),
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.calendar_month),
+                                              const SizedBox(width: 5),
+                                              Text(
+                                                '18 - Januari 2024',
+                                                overflow: TextOverflow.ellipsis,
+                                                softWrap: true,
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 10),
                                         ],
                                       ),
-                                      SizedBox(height: 10),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
 
-                        const SizedBox(width: 10), // Spacer antara kedua card
-                        Card(
-                          elevation: 1.0,
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width *
-                                0.45, // Mengatur lebar Card
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.13,
-                                  width: MediaQuery.of(context).size.width *
-                                      0.45, // Mengatur lebar gambar
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/Pilates.png",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width *
-                                      0.45, // Mengatur lebar konten
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Pilates',
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6
-                                            ?.copyWith(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                            ),
+                            const SizedBox(
+                                width: 10), // Spacer antara kedua card
+                            Card(
+                              elevation: 1.0,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width *
+                                    0.45, // Mengatur lebar Card
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.13,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45, // Mengatur lebar gambar
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                        ),
+                                        child: Image.asset(
+                                          "assets/images/yoga.png",
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                      const SizedBox(height: 10),
-                                      Row(
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45, // Mengatur lebar konten
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 15, 10, 0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.calendar_month),
-                                          const SizedBox(width: 5),
                                           Text(
-                                            '18 - Januari 2024',
+                                            'Yoga',
                                             overflow: TextOverflow.ellipsis,
                                             softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                                ?.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
                                           ),
+                                          const SizedBox(height: 10),
+                                          const Row(
+                                            children: [
+                                              Icon(Icons.calendar_month),
+                                              SizedBox(width: 5),
+                                              Text(
+                                                '18 - Januari 2024',
+                                                overflow: TextOverflow.ellipsis,
+                                                softWrap: true,
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 10),
                                         ],
                                       ),
-                                      SizedBox(height: 10),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
                       ],
                     ),
                   ),
@@ -346,7 +366,6 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
               ],
             ),
           ),
-
           Container(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -380,7 +399,7 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                       topRight: Radius.circular(10),
                                     ),
                                     child: Image.asset(
-                                      "assets/images/Pilates.png",
+                                      "assets/images/boxing.png",
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -395,17 +414,29 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Pilates',
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6
-                                            ?.copyWith(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                            ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Boxing',
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                                ?.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
+                                          ),
+                                          const SizedBox(
+                                            width: 95,
+                                          ),
+                                          Icon(
+                                            FontAwesomeIcons.solidStar,
+                                            color: ColorManager.pinkL1,
+                                            size: 15,
+                                          ),
+                                        ],
                                       ),
                                       const SizedBox(height: 10),
                                       Row(
@@ -449,7 +480,7 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                       topRight: Radius.circular(10),
                                     ),
                                     child: Image.asset(
-                                      "assets/images/Pilates.png",
+                                      "assets/images/body_combat.png",
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -464,17 +495,208 @@ class _DaftarKelasScreenState extends State<DaftarKelasScreen> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Pilates',
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6
-                                            ?.copyWith(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                            ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Body Combat',
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                                ?.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
+                                          ),
+                                          const SizedBox(
+                                            width: 50,
+                                          ),
+                                          Icon(
+                                            FontAwesomeIcons.solidStar,
+                                            color: ColorManager.pinkL1,
+                                            size: 15,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.calendar_month),
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            '18 - Januari 2024',
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Card(
+                          elevation: 1.0,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width *
+                                0.45, // Mengatur lebar Card
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.13,
+                                  width: MediaQuery.of(context).size.width *
+                                      0.45, // Mengatur lebar gambar
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                    child: Image.asset(
+                                      "assets/images/pole.png",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width *
+                                      0.45, // Mengatur lebar konten
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Pole',
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                                ?.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
+                                          ),
+                                          const SizedBox(
+                                            width: 90,
+                                          ),
+                                          Icon(
+                                            FontAwesomeIcons.solidStar,
+                                            color: ColorManager.pinkL1,
+                                            size: 15,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.calendar_month),
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            '18 - Januari 2024',
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(width: 10), // Spacer antara kedua card
+                        Card(
+                          elevation: 1.0,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width *
+                                0.45, // Mengatur lebar Card
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.13,
+                                  width: MediaQuery.of(context).size.width *
+                                      0.45, // Mengatur lebar gambar
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                    child: Image.asset(
+                                      "assets/images/fitnes.png",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width *
+                                      0.45, // Mengatur lebar konten
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 15, 10, 0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Fitnes',
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                                ?.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                ),
+                                          ),
+                                          const SizedBox(
+                                            width: 90,
+                                          ),
+                                          Icon(
+                                            FontAwesomeIcons.solidStar,
+                                            color: ColorManager.pinkL1,
+                                            size: 15,
+                                          ),
+                                        ],
                                       ),
                                       const SizedBox(height: 10),
                                       Row(

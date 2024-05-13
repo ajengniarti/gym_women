@@ -14,6 +14,7 @@ class ColorManager {
   static Color pinkL1 = HexColor.fromHex("#FE82B9");
   static Color pinkL2 = HexColor.fromHex("#FFA1CF");
   static Color pinkL3 = HexColor.fromHex("#FEB2DD");
+  static Color pinkL4 = HexColor.fromHex("#F7777E");
   static Color softpink = HexColor.fromHex("#FFD4D7");
 
   // Brand Color (Primary)

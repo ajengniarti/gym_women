@@ -1,20 +1,24 @@
 import 'package:app_gym/resources/color_manager.dart';
 import 'package:app_gym/screens/kelas/daftarkelas.dart';
+import 'package:app_gym/screens/kelas/detailkelas.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Stack(
+      body: Stack(
         children: [
           SafeArea(
             child: SingleChildScrollView(
@@ -24,13 +28,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Hi, Ajeng!',
-                          style: TextStyle(fontSize: 30),
+                        StreamBuilder<DocumentSnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(user!
+                                  .uid) // Menggunakan user ID untuk mendapatkan dokumen tunggal
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator(); // Menampilkan loading indicator saat data masih dimuat
+                            }
+
+                            if (!snapshot.hasData ||
+                                snapshot.data!.data() == null) {
+                              return const Text(
+                                'No data available', // Menampilkan pesan jika data tidak tersedia
+                                style: TextStyle(fontSize: 30),
+                              );
+                            }
+
+                            var userData =
+                                snapshot.data!.data() as Map<String, dynamic>;
+
+                            return Text(
+                              'Hello, ${userData['username']}!',
+                              style: TextStyle(fontSize: 30),
+                            );
+                          },
                         ),
 
                         //icon profile
@@ -110,66 +140,82 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Card(
-                            elevation: 1.0,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.13,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
+                          GestureDetector(
+                            onTap: () {
+                              // Tambahkan fungsi navigasi ke halaman baru di sini
+                              // Misalnya:
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailKelasScreen()),
+                              );
+                            },
+                            child: Card(
+                              elevation: 1.0,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.13,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      ),
+                                      child: Image.asset(
+                                        "assets/images/Pilates.png",
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                    child: Image.asset(
-                                        "assets/images/Pilates.png"),
                                   ),
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Pilates',
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6
-                                            ?.copyWith(
-                                              color: Colors.black,
-                                              fontSize: 18,
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        10, 15, 10, 0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Pilates',
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6
+                                              ?.copyWith(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.calendar_month),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              '18 - Januari 2024',
+                                              overflow: TextOverflow.ellipsis,
+                                              softWrap: true,
                                             ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.calendar_month),
-                                          Text(
-                                            '18 - Januari 2024',
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 10),
-                                    ],
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
+
                           const SizedBox(width: 5), // Spacer antara kedua card
                           Card(
                             elevation: 1.0,
@@ -534,14 +580,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 1),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 13),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: const Color.fromARGB(
                                               255, 197, 196, 196),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                          // hintText: 'Your text here',
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 15, vertical: 6),
+                                          // Menetapkan tinggi teksfield
+                                          isDense:
+                                              true, // Menyusutkan elemen teksfield
+                                          // Tinggi teksfield
+                                          // Anda dapat menyesuaikan nilai sesuai kebutuhan
+                                          // Misalnya, 13 untuk tinggi yang diminta
+                                          // Ini hanya menyesuaikan tinggi elemen, bukan ukuran font teksnya
+                                          // Untuk mengubah ukuran teks, Anda bisa menggunakan properti style pada TextField
+                                          // style: TextStyle(fontSize: 13),
+                                          // Atau menggunakan properti TextStyle pada decoration
                                         ),
                                       ),
                                     ),
@@ -551,23 +613,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 1),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 13),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: const Color.fromARGB(
                                               255, 197, 196, 196),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 15, vertical: 6),
+                                          isDense: true,
                                         ),
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   ElevatedButton(
-                                    onPressed: () {
-                                      // Aksi yang dilakukan ketika tombol ditekan
-                                    },
+                                    onPressed: () {},
                                     style: ElevatedButton.styleFrom(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 15, vertical: 10),
@@ -764,7 +830,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Judul Berita',
+                                      'Ayo Ikut Beneficios Do Treino!',
                                       // widget.news.title!.length > 40
                                       //     ? "${widget.news.title!.substring(0, 40)}..."
                                       //     : widget.news.title!,
@@ -856,7 +922,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10)),
-                                child: Image.asset("assets/images/berita2.png"),
+                                child: Image.asset("assets/images/berita3.png"),
                               ),
                             ),
                             Expanded(
@@ -868,7 +934,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Judul Berita',
+                                      'Pengaruh Angkat Beban bagi tubuh',
                                       // widget.news.title!.length > 40
                                       //     ? "${widget.news.title!.substring(0, 40)}..."
                                       //     : widget.news.title!,
@@ -949,7 +1015,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(),
           ),
         ],
-      )),
+      ),
     );
   }
 }
